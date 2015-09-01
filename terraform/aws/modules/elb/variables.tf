@@ -4,3 +4,6 @@ variable "node_ids" {
 variable "subnet_id" {
   default = ""
 }
+variable "security_group_id" {
+  default = ""
+}

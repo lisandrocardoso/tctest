@@ -3,6 +3,7 @@ resource "aws_elb" "tctest" {
   instances = [ "${split(",", "${var.node_ids}")}" ]
   cross_zone_load_balancing = true
   subnets = [ "${var.subnet_id}" ]
+  security_groups = [ "${var.security_group_id}" ]
   tags {
     Name = "tctest-elb"
   }
