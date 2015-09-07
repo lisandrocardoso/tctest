@@ -5,13 +5,14 @@ resource "aws_instance" "web" {
   count = "${var.servers}"
   tags {
     Name = "${var.name}-${count.index}"
+    slave_dependency = "${var.slave_dependency}"
   }
   vpc_security_group_ids = [ "${var.vpc_security_group_ids}" ]
   subnet_id = "${var.subnet_id}"
 
   provisioner "chef" {
     node_name = "web-${count.index}"
-    run_list = [ "recipe[learn_chef_apache2]" ]
+    run_list = [ "recipe[apt::default]", "recipe[tctest::user]", "recipe[tctest::app]" ]
     server_url = "${var.chef_server_url}"
     validation_client_name = "${var.chef_validation_client_name}"
     validation_key_path = "${var.chef_validation_key_path}"

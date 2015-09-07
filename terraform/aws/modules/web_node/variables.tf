@@ -31,3 +31,6 @@ variable "conn_user" {
 variable "conn_key_file" {
   default = ""
 }
+variable "slave_dependency" {
+  default = ""
+}
