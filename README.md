@@ -55,3 +55,4 @@ After making sure the needed keys are in place, run 'terraform plan && terraform
 * Module 'elb' runs
   * Creates an ELB using as instances the output of 'web_node.ids'. It creates it in the web subnet and uses the web security group.
   * The proper way to continue would be to setup a CNAME record that points tctest.com to the ELB dns name.
+
