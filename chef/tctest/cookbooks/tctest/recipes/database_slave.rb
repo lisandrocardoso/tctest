@@ -12,14 +12,6 @@
 
 include_recipe 'tctest::database'
 
-chef_gem 'mysql' do
-  compile_time false
-end
-
-chef_gem 'mysql2' do
-  compile_time false
-end
-
 mysql_config 'slave replication' do
   config_name 'replication'
   instance 'default'
@@ -28,7 +20,6 @@ mysql_config 'slave replication' do
   notifies :restart, 'mysql_service[default]', :immediately
   action :create
 end
-
 
 ## mysql::slave
 ruby_block "start_replication" do

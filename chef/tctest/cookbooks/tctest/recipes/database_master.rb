@@ -6,14 +6,6 @@
 
 include_recipe 'tctest::database'
 
-chef_gem 'mysql' do
-  compile_time false
-end
-
-chef_gem 'mysql2' do
-  compile_time false
-end
-
 mysql_config 'master replication' do
   config_name 'replication'
   instance 'default'

@@ -16,6 +16,14 @@ mysql_client 'default' do
   action :create
 end
 
+chef_gem 'mysql' do
+  compile_time false
+end
+
+chef_gem 'mysql2' do
+  compile_time false
+end
+
 mysql_service 'default' do
   initial_root_password data_bag_item('passwords', 'mysql_admin_password')['password']
   action [:create, :start]
