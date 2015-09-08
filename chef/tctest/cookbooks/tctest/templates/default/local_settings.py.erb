@@ -78,8 +78,8 @@ WSGI_APPLICATION = 'tctest_app.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': '<%= node['tctest']['app']['database'] %>',
-        'USER': '<%= node['tctest']['app']['dbuser'] %>',
+        'NAME': '<%= node['tctest']['database']['name'] %>',
+        'USER': '<%= node['tctest']['database']['user'] %>',
         'PASSWORD': '<%= @dbpassword %>',
         'HOST': '<%= @dbhost %>',
         'PORT': '3306',

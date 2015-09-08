@@ -21,23 +21,23 @@ mysql_service 'default' do
   action [:create, :start]
 end
 
-mysql_database node['tctest']['app']['database'] do
+mysql_database node['tctest']['database']['name'] do
   connection(
-    :host => node['tctest']['database']['host'],
+    :host => '127.0.0.1',
     :username => node['tctest']['database']['admin'],
     :password => data_bag_item('passwords', 'mysql_admin_password')['password']
   )
   action :create
 end
 
-mysql_database_user node['tctest']['app']['dbuser'] do
+mysql_database_user node['tctest']['database']['user'] do
   connection(
-    :host => node['tctest']['database']['host'],
+    :host => '127.0.0.1',
     :username => node['tctest']['database']['admin'],
     :password => data_bag_item('passwords', 'mysql_admin_password')['password']
   )
   password data_bag_item('passwords', 'mysql_user_password')['password']
-  database_name node['tctest']['app']['database']
-  host node['tctest']['app']['userhosts']
+  database_name node['tctest']['database']['name']
+  host node['tctest']['database']['origin']['app']
   action [:create, :grant]
 end

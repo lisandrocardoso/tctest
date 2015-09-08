@@ -3,13 +3,9 @@
 # Recipe:: app
 #
 # Copyright (c) 2015 The Authors, All Rights Reserved.
-
-app_database = {
-  :database => node['tctest']['app']['database'],
-  :adapter => node['tctest']['app']['adapter'],
-  :username => node['tctest']['app']['dbuser'],
-  :password => data_bag_item('passwords', 'mysql_user_password')['password']
-}
+#
+package 'git'
+package 'libmysqlclient-dev'
 
 directory node['tctest']['app']['deploy_path'] do
   recursive true
@@ -18,9 +14,6 @@ directory node['tctest']['app']['deploy_path'] do
 end
 
 ssh_known_hosts_entry 'github.com'
-
-package 'git'
-package 'libmysqlclient-dev'
 
 git node['tctest']['app']['deploy_path'] do
   repository node['tctest']['app']['repourl']

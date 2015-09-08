@@ -14,19 +14,6 @@ chef_gem 'mysql2' do
   compile_time false
 end
 
-#mysql_database_user 'replication' do
-#  connection(
-#    :host => node['tctest']['database']['host'],
-#    :username => node['tctest']['database']['admin'],
-#    :password => data_bag_item('passwords', 'mysql_admin_password')['password']
-#  )
-#  password data_bag_item('passwords', 'mysql_replication_password')['password']
-#  database_name '*'
-#  host node['tctest']['app']['userhosts']
-#  privileges ['replication slave']
-#  action [:create, :grant]
-#end
-
 mysql_config 'master replication' do
   config_name 'replication'
   instance 'default'
@@ -50,7 +37,7 @@ ruby_block "store_mysql_master_status" do
         node.set[:tctest][:database][:master_position] = h['Position']
       end
     end
-    m.query("grant replication slave on *.* to replication@'#{node[:tctest][:app][:userhosts]}' identified by '#{data_bag_item('passwords', 'mysql_replication_password')['password']}'")
+    m.query("grant replication slave on *.* to replication@'#{node[:tctest][:database][:origin][:replication]}' identified by '#{data_bag_item('passwords', 'mysql_replication_password')['password']}'")
     Chef::Log.info "Storing database master replication status: #{node[:tctest][:database][:master_file]} #{node[:tctest][:database][:master_position]}"
     node.save
   end

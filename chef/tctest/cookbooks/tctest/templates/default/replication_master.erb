@@ -4,4 +4,4 @@ log_bin = /var/log/mysql-<%= @mysql_instance %>/mysql-bin.log
 log_error = /var/log/mysql-<%= @mysql_instance %>/error.log
 relay-log = /var/log/mysql-<%= @mysql_instance %>/mysql-relay-bin.log
 server-id = <%= @server_id %>
-binlog_do_db = tctest
+binlog_do_db = <%= node['tctest']['database']['name'] %>
